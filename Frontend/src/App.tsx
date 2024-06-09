@@ -10,6 +10,7 @@ import "./App.css";
 import Background from "./Theme/BackgroundWrapper";
 import HomePage from "./View/HomePage/HomePageView";
 import ContactUsPage from "./View/ContactUs/ContactUsPage";
+import KatnarPage from "./View/Katnar/KatnarPage";
 
 const queryClient = new QueryClient();
 function App() {
@@ -35,7 +36,7 @@ function App() {
         },
         {
           path: paths.KATNAR,
-          element: <Typography variant="h1">דברי קטנאר</Typography>,
+          element: <KatnarPage />,
         },
         {
           path: paths.CONTACT_US,

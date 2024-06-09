@@ -37,7 +37,7 @@ const team100Box = (
       left: 0,
       display: "flex",
       padding: 1,
-      maxWidth: "20%",
+      maxWidth: "25%",
     }}
   >
     <Box
@@ -48,7 +48,7 @@ const team100Box = (
         width: 100,
       }}
     />
-    <Typography variant="h4">פותח על ידי צוות מא"ה</Typography>
+    <Typography variant="h4">פותח ע”י צוות מא”ה מדור מערכות מידע</Typography>
   </Box>
 );
 const RootLayout: React.FC = () => {
