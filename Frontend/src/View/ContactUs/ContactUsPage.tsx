@@ -7,7 +7,8 @@ import {
   Typography,
   Icon,
 } from "@mui/material";
-import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
+import PhoneIconPic from "../../assets/images/PhoneIconPic.png";
+// import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import PhoneIcon from "@mui/icons-material/Phone";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
@@ -67,9 +68,12 @@ const ContactUsPage: React.FC = () => {
           <Grid container spacing={5}>
             <Grid item xs={6}>
               <Stack direction="column" alignItems="center" color="#051D40">
-                <ContactPhoneIcon
+                <Box
+                  component={"img"}
+                  src={PhoneIconPic}
                   sx={{
-                    fontSize: 200,
+                    height: 200,
+                    width: 200,
                   }}
                 />
                 <Typography variant="h1" textAlign={"center"}>

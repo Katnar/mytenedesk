@@ -37,18 +37,29 @@ const team100Box = (
       left: 0,
       display: "flex",
       padding: 1,
-      maxWidth: "25%",
+      maxWidth: "20%",
     }}
   >
     <Box
-      component="img"
-      src={team100}
       sx={{
-        height: 100,
-        width: 100,
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
       }}
-    />
-    <Typography variant="h4">פותח ע”י צוות מא”ה מדור מערכות מידע</Typography>
+    >
+      <Box
+        component="img"
+        src={team100}
+        sx={{
+          height: 50,
+          width: 50,
+        }}
+      />
+    </Box>
+    <Box>
+      <Typography variant="h5">פותח ע”י צוות מא”ה</Typography>
+      <Typography variant="h5">מדור מערכות מידע</Typography>
+    </Box>
   </Box>
 );
 const RootLayout: React.FC = () => {
