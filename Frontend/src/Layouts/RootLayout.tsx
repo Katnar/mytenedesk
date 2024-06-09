@@ -5,10 +5,10 @@ import { Outlet } from "react-router";
 import Background from "../Theme/BackgroundWrapper";
 
 const routes = [
-  {
-    title: 'חיל הטנ"א',
-    path: "/",
-  },
+  // {
+  //   title: 'חיל הטנ"א',
+  //   path: "/",
+  // },
   {
     title: 'דבר קטנא"ר',
     path: "katnar",
@@ -43,6 +43,18 @@ const appbar = (
           width: 60,
         }}
       />
+      <Button
+        color="inherit"
+        href={"/"}
+        size="large"
+        sx={{
+          marginLeft: 10,
+          fontSize: 30,
+          fontWeight: "bold",
+        }}
+      >
+        חיל הטנ"א
+      </Button>
       <Box
         sx={{
           display: "flex",
@@ -92,14 +104,12 @@ const team100Box = (
 );
 const RootLayout: React.FC = () => {
   return (
-    <Box sx={{ display: "flex" }}>
+    <>
       {appbar}
-      <Box component="main">
-        <Toolbar />
-        <Outlet />
-      </Box>
+      <Toolbar />
+      <Outlet />
       {team100Box}
-    </Box>
+    </>
   );
 };
 

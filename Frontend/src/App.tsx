@@ -1,7 +1,7 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import paths from "./paths";
 import viteLogo from "/vite.svg";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -9,6 +9,7 @@ import RootLayout from "./Layouts/RootLayout";
 import "./App.css";
 import Background from "./Theme/BackgroundWrapper";
 import HomePage from "./View/HomePage/HomePageView";
+import ContactUsPage from "./View/ContactUs/ContactUsPage";
 
 const queryClient = new QueryClient();
 function App() {
@@ -22,7 +23,7 @@ function App() {
       children: [
         {
           index: true,
-          element: <HomePage/>
+          element: <HomePage />,
         },
         {
           path: paths.APPLICATIONS,
@@ -38,7 +39,8 @@ function App() {
         },
         {
           path: paths.CONTACT_US,
-          element: <Typography variant="h1">צור קשר</Typography>,
+
+          element: <ContactUsPage />,
         },
       ],
     },
@@ -46,7 +48,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </QueryClientProvider>
   );
 }

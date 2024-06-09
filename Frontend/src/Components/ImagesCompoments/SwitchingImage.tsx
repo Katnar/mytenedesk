@@ -15,13 +15,13 @@ const SwitchingImage: React.FC<Props> = ({
   sx,
   switchTimeout,
   transitionTimeout,
-  children
+  children,
 }) => {
-  const imageSrc = useImageSwap(srcs, switchTimeout);
+  const { image: imageSrc, count } = useImageSwap(srcs, switchTimeout);
 
   const images = srcs.map((src) => (
-    <Fade in={imageSrc === src} timeout={transitionTimeout}>
-      <Box component="img" sx={sx} src={src} >
+    <Fade in={imageSrc === src} timeout={count > 0 ? transitionTimeout : 0}>
+      <Box component="img" sx={sx} src={src}>
         {children}
       </Box>
     </Fade>

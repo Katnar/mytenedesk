@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       <SwitchingImage
-        switchTimeout={5000}
+        switchTimeout={10000}
         transitionTimeout={2500}
         srcs={[tankbg, flagbg, soildersbg, sunsetbg]}
         sx={{
@@ -26,16 +26,26 @@ const HomePage: React.FC = () => {
         position="absolute"
         sx={{
           paddingRight: 2,
-          paddingTop: 2,
+          paddingTop: 10,
         }}
       >
         <Typography
           variant="h1"
           sx={{
             fontWeight: "bold",
+            // backgroundColor: "rgba(60, 60, 60, 0.5)",
           }}
         >
-          פורטל חיל הטכנולוגיה והאחזקה
+          פורטל חיל
+        </Typography>
+        <Typography
+          variant="h1"
+          sx={{
+            fontWeight: "bold",
+            // backgroundColor: "rgba(60, 60, 60, 0.5)",
+          }}
+        >
+          הטכנולגיה והאחזקה
         </Typography>
         <Typography
           variant="h2"
