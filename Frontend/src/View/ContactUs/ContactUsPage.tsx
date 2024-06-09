@@ -60,12 +60,13 @@ const ContactUsPage: React.FC = () => {
         sx={{
           width: "100%",
           height: "100%,",
+          borderRadius: 2,
         }}
       >
         <CardContent>
           <Grid container spacing={5}>
             <Grid item xs={6}>
-              <Stack direction="column" alignItems="center">
+              <Stack direction="column" alignItems="center" color="#051D40">
                 <ContactPhoneIcon
                   sx={{
                     fontSize: 200,

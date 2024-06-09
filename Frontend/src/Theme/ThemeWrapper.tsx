@@ -36,17 +36,30 @@ theme = createTheme(theme, {
       name: "sky",
     }),
   },
+  //   black: theme.palette.augmentColor({
+  //     color: {
+  //       main: "#000000",
+  //     },
+  //     name: "black",
+  //   }),
 });
 declare module "@mui/material/styles" {
   interface Palette {
     sky: Palette["primary"];
+    // black: Palette["primary"];
   }
 
   interface PaletteOptions {
     sky?: PaletteOptions["primary"];
+    // black?: PaletteOptions["primary"];
   }
 }
 
+// declare module "@mui/material/Button" {
+//   interface ButtonPropsColorOverrides {
+//     black: true;
+//   }
+// }
 type Props = {
   children?: React.ReactNode;
 };
