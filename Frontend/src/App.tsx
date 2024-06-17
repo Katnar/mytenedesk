@@ -11,6 +11,7 @@ import Background from "./Theme/BackgroundWrapper";
 import HomePage from "./View/HomePage/HomePageView";
 import ContactUsPage from "./View/ContactUs/ContactUsPage";
 import KatnarPage from "./View/Katnar/KatnarPage";
+import WebsitePage from "./View/Websites/WebsitePage";
 
 const queryClient = new QueryClient();
 function App() {
@@ -28,11 +29,11 @@ function App() {
         },
         {
           path: paths.APPLICATIONS,
-          element: <Typography variant="h1">אפליקציות</Typography>,
+          element: <WebsitePage teneDesk={true} />,
         },
         {
           path: paths.INFO_SITES,
-          element: <Typography variant="h1">אתרי ידע</Typography>,
+          element: <WebsitePage teneDesk={false} />,
         },
         {
           path: paths.KATNAR,

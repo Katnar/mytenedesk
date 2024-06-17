@@ -21,6 +21,7 @@ let theme = createTheme({
         root: {
           backgroundColor: "#E7FAFF",
           color: "#000000",
+          boxShadow: "0 0 10px #ffffff"
         },
       },
     },
