@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Path, useForm, UseFormRegister, SubmitHandler } from "react-hook-form";
 import WebsiteFormFields from "../../../Interfaces/WebsiteFromFields";
 import { Button, Box, Typography, IconButton } from "@mui/material";
@@ -11,9 +11,10 @@ const FileInput = React.forwardRef<
     UseFormRegister<WebsiteFormFields>
   >
 >(({ onChange, onBlur, name, label, accept }, ref) => {
-  const buttonRef = useRef(null);
   const { inputRef, refFunc } = useInputFowardRef(ref);
-  const files = inputRef.current ? inputRef.current.files : null;
+  const [files, setFiles] = useState<FileList | null>(null);
+//   const files = inputRef.current ? inputRef.current.files : null;
+//   console.log(files);
   let elementsList = [];
   if (files) {
     for (let i = 0; i < files.length; i++) {
@@ -26,19 +27,7 @@ const FileInput = React.forwardRef<
   }
   return (
     <>
-      <input
-        accept={accept}
-        type="file"
-        hidden
-        name={name}
-        ref={refFunc}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
       <Box
-        onClick={() => {
-          inputRef.current?.click();
-        }}
         sx={{
           display: "flex",
           flexDirection: "row",
@@ -50,6 +39,18 @@ const FileInput = React.forwardRef<
         }}
       >
         <IconButton component="label">
+          <input
+            accept={accept}
+            type="file"
+            hidden
+            name={name}
+            ref={refFunc}
+            onChange={(event) => {
+                onChange(event);
+                setFiles(event.target.files);
+            }}
+            onBlur={onBlur}
+          />
           <AttachFileIcon />
         </IconButton>
         {elementsList.length > 0 ? (

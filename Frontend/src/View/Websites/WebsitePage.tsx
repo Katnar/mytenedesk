@@ -22,7 +22,6 @@ interface Props {
   teneDesk: boolean;
 }
 
-
 const WebsitePage: React.FC<Props> = ({ teneDesk }) => {
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
   const [search, setSearch] = useState<String>("");
@@ -123,7 +122,6 @@ const WebsitePage: React.FC<Props> = ({ teneDesk }) => {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>הוספת מערכת</DialogTitle>
         <DialogContent>
           <WebsiteForm />
         </DialogContent>
