@@ -13,8 +13,8 @@ const FileInput = React.forwardRef<
 >(({ onChange, onBlur, name, label, accept }, ref) => {
   const { inputRef, refFunc } = useInputFowardRef(ref);
   const [files, setFiles] = useState<FileList | null>(null);
-//   const files = inputRef.current ? inputRef.current.files : null;
-//   console.log(files);
+  //   const files = inputRef.current ? inputRef.current.files : null;
+  //   console.log(files);
   let elementsList = [];
   if (files) {
     for (let i = 0; i < files.length; i++) {
@@ -27,6 +27,18 @@ const FileInput = React.forwardRef<
   }
   return (
     <>
+      <input
+        accept={accept}
+        type="file"
+        hidden
+        name={name}
+        ref={refFunc}
+        onChange={(event) => {
+          onChange(event);
+          setFiles(event.target.files);
+        }}
+        onBlur={onBlur}
+      />
       <Box
         sx={{
           display: "flex",
@@ -37,20 +49,11 @@ const FileInput = React.forwardRef<
           borderBottomWidth: 2,
           borderBottomStyle: "solid",
         }}
+        onClick={() => {
+          inputRef.current?.click();
+        }}
       >
         <IconButton component="label">
-          <input
-            accept={accept}
-            type="file"
-            hidden
-            name={name}
-            ref={refFunc}
-            onChange={(event) => {
-                onChange(event);
-                setFiles(event.target.files);
-            }}
-            onBlur={onBlur}
-          />
           <AttachFileIcon />
         </IconButton>
         {elementsList.length > 0 ? (
