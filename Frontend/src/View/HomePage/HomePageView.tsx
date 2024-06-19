@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
       <Box
         position="absolute"
         sx={{
-          paddingRight: 2,
+          paddingLeft: 2,
           paddingTop: 10,
         }}
       >
@@ -33,6 +33,7 @@ const HomePage: React.FC = () => {
           variant="h1"
           sx={{
             fontWeight: "bold",
+            color:"white"
             // backgroundColor: "rgba(60, 60, 60, 0.5)",
           }}
         >
@@ -42,6 +43,7 @@ const HomePage: React.FC = () => {
           variant="h1"
           sx={{
             fontWeight: "bold",
+            color: "white"
             // backgroundColor: "rgba(60, 60, 60, 0.5)",
           }}
         >

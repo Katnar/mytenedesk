@@ -34,10 +34,11 @@ const team100Box = (
     sx={{
       position: "fixed",
       bottom: 0,
-      left: 0,
+      right: 0,
       display: "flex",
       padding: 1,
       maxWidth: "20%",
+      color:"white"
     }}
   >
     <Box
@@ -70,7 +71,8 @@ const RootLayout: React.FC = () => {
     <AppBar
       sx={{
         padding: 1,
-        background: barBackground,
+        backgroundImage: barBackground,
+        boxShadow:"none"
       }}
     >
       <Toolbar>

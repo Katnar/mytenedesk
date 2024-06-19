@@ -76,10 +76,20 @@ const ContactUsPage: React.FC = () => {
                     width: 200,
                   }}
                 />
-                <Typography variant="h1" textAlign={"center"}>
+                <Typography
+                  variant="h1"
+                  fontSize={"90px"}
+                  fontWeight={"bold"}
+                  textAlign={"center"}
+                >
                   צור איתנו{" "}
                 </Typography>
-                <Typography variant="h1" textAlign={"center"}>
+                <Typography
+                  variant="h1"
+                  fontSize={"90px"}
+                  fontWeight={"bold"}
+                  textAlign={"center"}
+                >
                   קשר!{" "}
                 </Typography>
               </Stack>

@@ -9,15 +9,22 @@ import {
   Box,
   Typography,
   IconButton,
+  Dialog,
+  DialogContent,
+  DialogTitle,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import WebsiteModal from "../../Components/Websites/WebsiteModal";
+import WebsiteForm from "../../Forms/Website/WebsiteForm";
 
 interface Props {
-  teneDesk: Boolean;
+  teneDesk: boolean;
 }
+
+
 const WebsitePage: React.FC<Props> = ({ teneDesk }) => {
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
   const [search, setSearch] = useState<String>("");
   console.log(search);
   const websites: Website[] = [
@@ -108,6 +115,20 @@ const WebsitePage: React.FC<Props> = ({ teneDesk }) => {
   );
   return (
     <Stack direction={"column"} padding={10}>
+      <Dialog
+        open={isFormOpen}
+        onClose={() => {
+          setIsFormOpen(false);
+        }}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>הוספת מערכת</DialogTitle>
+        <DialogContent>
+          <WebsiteForm />
+        </DialogContent>
+      </Dialog>
+
       <Box
         sx={{
           display: "flex",
@@ -120,7 +141,7 @@ const WebsitePage: React.FC<Props> = ({ teneDesk }) => {
           zIndex: 10,
         }}
       >
-        <Box
+        {/* <Box
           sx={{
             //   display: "flex",
             //   justifyContent: "flex-start",
@@ -132,53 +153,59 @@ const WebsitePage: React.FC<Props> = ({ teneDesk }) => {
             width: "30%",
             // width: "100%",
           }}
-        >
-          <Autocomplete
-            renderOption={(props, option) => {
-              return (
-                <Typography
-                  variant="subtitle1"
-                  {...props}
-                  style={{ color: "black" }}
-                >
-                  {option}
-                </Typography>
-              );
-            }}
-            id="websites_search_bar"
-            options={teneDeskWebsites.map((web) => web.name)}
-            //   getOptionLabel={(option) => option.name}
-            value={search}
-            onChange={(event, newValue) => {
-              setSearch(newValue);
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                sx={{
-                  input: {
-                    color: "black",
-                    width: "100%",
-                  },
-                }}
-                id="website_searchfield"
-                placeholder="חפש אתר"
-                InputProps={{
-                  ...params.InputProps,
-                  disableUnderline: true,
-                  // {...params.InputProps}
-                  startAdornment: (
-                    <InputAdornment position="end">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-                variant="standard"
-              />
-            )}
-          />
-        </Box>
+        > */}
+        <Autocomplete
+          renderOption={(props, option) => {
+            return (
+              <Typography
+                variant="subtitle1"
+                {...props}
+                sx={{ color: "black" }}
+              >
+                {option}
+              </Typography>
+            );
+          }}
+          id="websites_search_bar"
+          options={teneDeskWebsites.map((web) => web.name)}
+          //   getOptionLabel={(option) => option.name}
+          value={search}
+          onChange={(event, newValue) => {
+            setSearch(newValue);
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              sx={{
+                backgroundColor: "white",
+                borderRadius: 10,
+                width: 400,
+                input: {
+                  color: "black",
+                  width: "100%",
+                },
+              }}
+              id="website_searchfield"
+              placeholder="חפש אתר"
+              InputProps={{
+                ...params.InputProps,
+                disableUnderline: true,
+                // {...params.InputProps}
+                startAdornment: (
+                  <InputAdornment position="end">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              variant="standard"
+            />
+          )}
+        />
+        {/* </Box> */}
         <IconButton
+          onClick={() => {
+            setIsFormOpen(true);
+          }}
           sx={{
             color: "white",
             borderWidth: 2,
