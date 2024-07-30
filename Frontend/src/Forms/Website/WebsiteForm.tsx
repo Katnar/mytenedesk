@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 // import { RegisterOptions, UseFormRegister } from "react-hook-form";
 import WebsiteFormFields from "../../Interfaces/WebsiteFromFields";
+// import FileInput from "../../Components/Inputs/FileInput/FileInputNew";
 import FileInput from "../../Components/Inputs/FileInput/FileInput";
-
 const WebsiteForm: React.FC = () => {
   const {
     register,
@@ -21,6 +21,7 @@ const WebsiteForm: React.FC = () => {
     },
   });
   const onSubmit: SubmitHandler<WebsiteFormFields> = (data) => {
+    console.log("served");
     console.log(data);
   };
   return (
@@ -31,14 +32,19 @@ const WebsiteForm: React.FC = () => {
         <Controller
           control={control}
           name="name"
-          rules={{ required: "שם אתר ריק", maxLength: 5 }}
+          defaultValue=""
+          rules={{
+            required: "שם אתר ריק",
+            minLength: { value: 3, message: "שם אתר קצר מידי" },
+          }}
           render={({ field }) => <TextField {...field} label="שם האתר" />}
         />
         <Typography color={"error"} variant="body1">
           {errors.name?.message}
         </Typography>
         <FileInput
-          label="תמונת מערכת"
+          name="image"
+          label="תמונה"
           accept=".png,.jpg,.jpeg"
           {...register("image", {
             required: "נא להכניס תמונה",
@@ -55,6 +61,7 @@ const WebsiteForm: React.FC = () => {
             },
           })}
         />
+
         <Typography color={"error"} variant="body1">
           {errors.image?.message}
         </Typography>

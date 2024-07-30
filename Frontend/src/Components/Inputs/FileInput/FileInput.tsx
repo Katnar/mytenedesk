@@ -1,5 +1,11 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
-import { Path, useForm, UseFormRegister, SubmitHandler, RegisterOptions } from "react-hook-form";
+import {
+  Path,
+  useForm,
+  UseFormRegister,
+  SubmitHandler,
+  RegisterOptions,
+} from "react-hook-form";
 import WebsiteFormFields from "../../../Interfaces/WebsiteFromFields";
 import { Button, Box, Typography, IconButton } from "@mui/material";
 import useInputFowardRef from "../../../hooks/useFowardRef";
@@ -11,85 +17,100 @@ const FileInput = React.forwardRef<
   { label: string; accept: string } & ReturnType<
     UseFormRegister<WebsiteFormFields>
   >
->(({ label, accept, onChange, onBlur, name, }, ref) => {
-  const [file, setFile] = useState<File | null>(null);
+>(({ label, accept, onChange, onBlur, name }, ref) => {
   const innerRef = useRef<HTMLInputElement>(null);
-  useImperativeHandle(ref, () => innerRef.current!, []);
-  // const { inputRef, refFunc } = useInputFowardRef(ref);
-  const [files, setFiles] = useState<File>();
-  let elementsList = [];
-  if (files) {
-    for (let i = 0; i < files.length; i++) {
-      const file = files.item(i);
-      if (file) {
-        const element = (
-          <Typography key={file.name} variant="button">
-            {file.name}
-          </Typography>
-        );
-        elementsList.push(element);
-      }
-    }
-  }
+  useImperativeHandle(ref, () => innerRef.current as HTMLInputElement, []);
+  const [fileName, setFileName] = useState("");
+  const [file, setFile] = useState<File | null>();
   return (
     <>
       <input
         accept={accept}
         type="file"
         hidden
-        value={file}
+        // value={file}
         name={name}
         ref={innerRef}
         onChange={(event) => {
-          console.log(event);
           onChange(event);
-          setFiles(event.target.files);
+          setFile(event.target.files ? event.target.files[0] : null);
+          setFileName(
+            event.target.files && event.target.files[0]
+              ? event.target.files[0].name
+              : ""
+          );
         }}
         onBlur={onBlur}
       />
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          gap: 2,
-          alignItems: "center",
-          borderBottomColor: "primary.main",
-          borderBottomWidth: 2,
-          borderBottomStyle: "solid",
+          flexDirection: "column",
         }}
       >
         <Box
           sx={{
             display: "flex",
             flexDirection: "row",
+            justifyContent: "space-between",
             gap: 2,
             alignItems: "center",
-          }}
-          onClick={() => {
-            innerRef.current?.click();
+            borderBottomColor: "primary.main",
+            borderBottomWidth: 2,
+            borderBottomStyle: "solid",
           }}
         >
-          <IconButton component="label">
-            <AttachFileIcon />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 2,
+              alignItems: "center",
+            }}
+            onClick={() => {
+              innerRef.current?.click();
+            }}
+          >
+            <IconButton component="label">
+              <AttachFileIcon />
+            </IconButton>
+            <Typography variant="button">
+              {fileName !== "" ? fileName : label}
+            </Typography>
+          </Box>
+          <IconButton
+            sx={{
+              justifySelf: "flex-end",
+            }}
+            onClick={() => {
+              if (innerRef.current) {
+                innerRef.current.value = "";
+                setFile(null);
+                setFileName("");
+                onChange({
+                  target: {
+                    name,
+                    value: null,
+                  },
+                });
+              }
+            }}
+          >
+            <ClearIcon />
           </IconButton>
-          {elementsList.length > 0 ? (
-            elementsList
-          ) : (
-            <Typography variant="button">{label}</Typography>
-          )}
         </Box>
-        <IconButton
-          sx={{
-            justifySelf: "flex-end",
-          }}
-          onClick={(event) => {
-            innerRef.current?.onchange();
-            setFiles(null);
-          }}
-        >
-          <ClearIcon />
-        </IconButton>
+        {file && (
+          <Box
+            component="img"
+            src={URL.createObjectURL(file)}
+            sx={{
+              marginTop: 2,
+              alignSelf: "center",
+              maxWidth: "100%",
+              maxHeight: "200px",
+            }}
+          />
+        )}
       </Box>
     </>
   );
