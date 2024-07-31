@@ -11,6 +11,7 @@ import {
   IconButton,
   Dialog,
   DialogContent,
+  Tooltip,
   DialogTitle,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -24,7 +25,7 @@ interface Props {
 
 const WebsitePage: React.FC<Props> = ({ teneDesk }) => {
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
-  const [search, setSearch] = useState<String>("");
+  const [search, setSearch] = useState<string>("");
   console.log(search);
   const websites: Website[] = [
     {
@@ -123,7 +124,7 @@ const WebsitePage: React.FC<Props> = ({ teneDesk }) => {
         fullWidth
       >
         <DialogContent>
-          <WebsiteForm />
+          <WebsiteForm isEdit={false} teneDesk={teneDesk} />
         </DialogContent>
       </Dialog>
 
@@ -184,13 +185,13 @@ const WebsitePage: React.FC<Props> = ({ teneDesk }) => {
                 },
               }}
               id="website_searchfield"
-              placeholder="חפש אתר"
+              placeholder={teneDesk ? "חפש אפליקציה" : "חפש אתר ידע"}
               InputProps={{
                 ...params.InputProps,
                 disableUnderline: true,
                 // {...params.InputProps}
                 startAdornment: (
-                  <InputAdornment position="end">
+                  <InputAdornment position='end'>
                     <SearchIcon />
                   </InputAdornment>
                 ),
@@ -200,18 +201,20 @@ const WebsitePage: React.FC<Props> = ({ teneDesk }) => {
           )}
         />
         {/* </Box> */}
-        <IconButton
-          onClick={() => {
-            setIsFormOpen(true);
-          }}
-          sx={{
-            color: "white",
-            borderWidth: 2,
-            borderColor: "white",
-          }}
-        >
-          <AddIcon />
-        </IconButton>
+        <Tooltip title={teneDesk ? "הוסף אפליקציה" : "הוסף אתר ידע"} arrow>
+          <IconButton
+            onClick={() => {
+              setIsFormOpen(true);
+            }}
+            sx={{
+              color: "white",
+              borderWidth: 2,
+              borderColor: "white",
+            }}
+          >
+            <AddIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
       <Grid container spacing={3}>
         {teneDeskWebsites.map((website) => (

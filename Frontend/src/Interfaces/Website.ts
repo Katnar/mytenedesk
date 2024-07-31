@@ -3,7 +3,7 @@ interface Website {
   name: String;
   link: String;
   imagePath: String;
-  teneDesk: Boolean;
+  teneDesk: boolean;
 }
 
 export default Website;
