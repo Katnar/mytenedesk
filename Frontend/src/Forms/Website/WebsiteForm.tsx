@@ -61,8 +61,8 @@ const WebsiteForm: React.FC<WebsiteFormProps> = ({
       ? "עריכת אפליקציה"
       : "עריכת אתר ידע"
     : teneDesk
-    ? "יצירת אפליקציה"
-    : "יצירת אתר ידע";
+    ? "הוספת אפליקציה"
+    : "הוספת אתר ידע";
 
   const image = watch("image");
 
@@ -85,6 +85,7 @@ const WebsiteForm: React.FC<WebsiteFormProps> = ({
       />
     );
 
+  const typeName = teneDesk ? "אפליקציה" : "אתר";
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* <input className="MuiTextField-root" aria-label="label"/> */}
@@ -101,8 +102,8 @@ const WebsiteForm: React.FC<WebsiteFormProps> = ({
             name="name"
             defaultValue=""
             rules={{
-              required: "שם אתר ריק",
-              minLength: { value: 3, message: "שם אתר קצר מידי" },
+              required: `שם ${typeName} ריק`,
+              maxLength: { value: 20, message: `שם ${typeName} ארוך מידי ` },
             }}
             render={({ field }) => (
               <TextField sx={{ flexGrow: 1 }} {...field} label="שם האתר" />
@@ -119,7 +120,7 @@ const WebsiteForm: React.FC<WebsiteFormProps> = ({
           label={teneDesk ? "תמונת האפליקציה" : "תמונת האתר"}
           accept=".png,.jpg,.jpeg"
           {...register("image", {
-            required: "נא להכניס תמונה",
+            required: `הכנס תמונת ${typeName}`,
             validate: (value) => {
               const isValid =
                 value.type === "image/png" ||
@@ -127,7 +128,7 @@ const WebsiteForm: React.FC<WebsiteFormProps> = ({
                 value.type === "image/jpeg";
               if (!isValid) {
                 console.log(value.type);
-                return "הכנס בבקשה תמונה";
+                return "הכנס קובץ מסוג תמונה";
               }
               return true;
             },
@@ -144,12 +145,12 @@ const WebsiteForm: React.FC<WebsiteFormProps> = ({
           <Controller
             control={control}
             name="link"
-            rules={{ required: "קישור לאתר ריק" }}
+            rules={{ required: `קישור ל${typeName} ריק` }}
             render={({ field }) => (
               <TextField
                 {...field}
                 sx={{ flexGrow: 1 }}
-                label="קישור לאתר"
+                label={`קישור ל${typeName}`}
                 multiline
                 maxRows={4}
               />
