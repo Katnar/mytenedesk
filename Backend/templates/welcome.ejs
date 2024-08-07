@@ -1,0 +1,56 @@
+<%- include('./includes/header.ejs') %>
+
+<div
+  dir="rtl"
+  style="margin: 0 auto; max-width: 720px; padding: 20px 0; font-family: Arial"
+>
+  <div
+    style="
+      text-align: center;
+      font-weight: 100;
+      font-size: 25px;
+      line-height: 57px;
+      font-family: Verdana;
+      margin: 0px;
+      color: #1e2f97;
+    "
+  >
+    <div>
+      <h1>עדכון לגבי בקשת חוליה מס' <%= msd %></h1>
+      <h1><%= msd %></h1>
+
+      <h2>סטטוס בקשת החוליה שלך עודכן במערכת לסטטוס "<%= type %>"</h2>
+
+      <% if(zadik != ""){ %>
+      <h2>הבקשה ניפתחה עבור צ' מספר: <%= zadik %></h2>
+      <% } if(amlah != ""){ %>
+      <h2>הבקשה ניפתחה עבור סוג האמל"ח: <%= amlah %></h2>
+      <% } %>
+
+      <!-- //FIXME - chenge the addrses of the seystem to the currect one -->
+      <a href="<%= `http://localhost:3000/Holiyot/Report/${reportID}` %>">
+        <button
+          style="
+            background: transparent
+              linear-gradient(90deg, #1aa7ec 0%, #1e2f97 100%) 0% 0% no-repeat
+              padding-box;
+            background: transparent
+              linear-gradient(90deg, #1aa7ec 0%, #1e2f97 100%) 0% 0% no-repeat
+              padding-box;
+            width: 50%;
+            height: 80px;
+            color: white;
+            padding: 1px 0 10px 0;
+          "
+          id="btn"
+        >
+          <h1>לחץ למעבר למערכת</h1>
+        </button>
+      </a>
+      <p style="padding: 5px">בברכה,</p>
+      <p style="padding: 5px">צוות מערכת חוליות</p>
+    </div>
+  </div>
+</div>
+
+<%- include('./includes/footer.ejs') %>

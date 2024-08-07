@@ -1,0 +1,93 @@
+const User = require("../../models/authentication/user.model");
+//const jwt = require('jsonwebtoken'); // to generate signed token
+//const expressJwt = require('express-jwt'); // for auth check
+//const {errorHandler} = require('../helpers/dbErrorHandler');
+
+exports.signup = (req, res) => {
+  console.log(`The SignUp server function`);
+  console.log("req.body", req.body);
+  const user = new User(req.body);
+  user.save((err, user) => {
+    if (err) {
+      return res
+        .status(400)
+        .json({ error: true, error_message: "משתמש כבר קיים" });
+    }
+    // user.salt = undefined;
+    // user.hashed_password = undefined;
+    res.json({ error: false, error_message: "", data: user });
+  });
+};
+
+exports.signin = (req, res) => {
+  //find based on personalnumber
+  const { personalnumber, password } = req.body;
+  User.findOne({ personalnumber: personalnumber }, (err, user) => {
+    console.log(
+      `The SignIn server function - personalnumber: ${req.body.personalnumber}`
+    );
+    console.log(`The SignIn server function - user:`);
+    console.log(user);
+    if (!user || user === undefined || user === null) {
+      return res.json({
+        error: true,
+        error_message: "משתמש עם מספר אישי זה אינו קיים", // "משתמש עם מספר אישי זה אינו קיים",
+      });
+    }
+    if (err) {
+      return res
+        .status(400)
+        .json({ error: true, error_message: "Error: " + err });
+    }
+    //if user found make sure the personalnumber and password match
+    //create authenticate method in user model
+    // if(!user.authenticate(password)){
+    //     return res.status(401).json({
+    //         error: 'הסיסמא שגויה'
+    //     })
+    // }
+    /*   //generate a signed token with user id and secret
+        const token = jwt.sign({_id: user.id}, process.env.JWT_SECRET);
+        //presist the token as 't' in cookie with expiry date
+        res.cookie('t' ,token, {expire: new Date() + 9999});
+        // return response with user and token to frontend client */
+    // const {_id, name, lastname, personalnumber, role,number,gdodid,hativaid,ogdaid,pikodid,validated,workplan, lightMode, darkMode, adam} = user
+    if (user) {
+      if (user.approved === true) {
+        return res.json({ data: user });
+      } else {
+        return res.json({ error: true, error_message: "משתמש לא מאושר" });
+      }
+    }
+  });
+};
+
+exports.signout = (req, res) => {
+  res.clearCookie("t");
+  res.json({ error_message: "התנתקת בהצלחה" });
+};
+
+/*exports.requireSignin = expressJwt({
+    secret: process.env.JWT_SECRET,
+    userProperty: 'auth',
+    algorithms: ['HS256']
+});*/
+exports.isAuth = (req, res, next) => {
+  let user = req.profile && req.auth && req.profile._id == req.auth._id;
+  if (!user) {
+    return res.status(403).json({
+      error_message: " אין גישה",
+    });
+  }
+  next();
+};
+
+exports.isAdmin = (req, res, next) => {
+  if (req.profile.role === 0) {
+    return res.status(403).json({
+      error: true,
+      error_message: "לא ניתנה הרשאה של מנהל",
+    });
+  }
+  next();
+};
